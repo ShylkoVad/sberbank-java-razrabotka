@@ -18,8 +18,9 @@ public class Main {
 //        List<City> cities = sortingName(fileName); // сортировка по имени
 //        List<City> cities = sortingDistrictName(fileName); // сортировка по федеральному округу и имени
         citizenMax(fileName);
+        citizenMax_II(fileName);
 
-        // Выводим полученные объекты City в консоль
+//         Выводим полученные объекты City в консоль
 //        for (City city : cities) {
 //            System.out.println(city);
 //        }
@@ -72,6 +73,9 @@ public class Main {
         return cities;
     }
 
+    /**
+     * Вариант первый решения
+     */
     public static void citizenMax(String fileName) {
 
         int maxPopulation = 0;
@@ -98,4 +102,14 @@ public class Main {
         }
         System.out.println("[" + maxNumber + "]" + " " + maxPopulation);
     }
+
+    /**
+     * Вариант второй решения
+     */
+    public static void citizenMax_II(String fileName) {
+        List<City> cities = readCitiesFromFile(fileName);
+        City cityWithMaxPopulation = Collections.max(cities, Comparator.comparing(City::getPopulation));
+        System.out.println("[" + cityWithMaxPopulation.getNumber() + "]" + " " + cityWithMaxPopulation.getPopulation());
+    }
+
 }
