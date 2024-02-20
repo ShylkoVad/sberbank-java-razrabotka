@@ -111,5 +111,8 @@ public class Main {
         City cityWithMaxPopulation = Collections.max(cities, Comparator.comparing(City::getPopulation));
         System.out.println("[" + cityWithMaxPopulation.getNumber() + "]" + " " + cityWithMaxPopulation.getPopulation());
     }
+    public static void numberCitiesRegion (String fileName) {
+
+    }
 
 }
