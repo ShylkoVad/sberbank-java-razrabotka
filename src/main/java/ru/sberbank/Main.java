@@ -16,12 +16,13 @@ public class Main {
 
 //        List<City> cities = readCitiesFromFile(fileName); // вывод списка
 //        List<City> cities = sortingName(fileName); // сортировка по имени
-        List<City> cities = sortingDistrictName(fileName); // сортировка по федеральному округу и имени
+//        List<City> cities = sortingDistrictName(fileName); // сортировка по федеральному округу и имени
+        citizenMax(fileName);
 
         // Выводим полученные объекты City в консоль
-        for (City city : cities) {
-            System.out.println(city);
-        }
+//        for (City city : cities) {
+//            System.out.println(city);
+//        }
     }
 
     public static List<City> readCitiesFromFile(String fileName) {
@@ -69,5 +70,32 @@ public class Main {
         List<City> cities = readCitiesFromFile(fileName);
         Collections.sort(cities, Comparator.comparing(City::getDistrict).thenComparing(City::getName));
         return cities;
+    }
+
+    public static void citizenMax(String fileName) {
+
+        int maxPopulation = 0;
+        int maxNumber = 0;
+
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String input = scanner.nextLine();
+                String[] cityData = input.split(";");
+                int number = Integer.parseInt(cityData[0]);
+                int population = Integer.parseInt(cityData[4]);
+
+                if (population > maxPopulation) {
+                    maxPopulation = population;
+                    maxNumber = number;
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден");
+        }
+        System.out.println("[" + maxNumber + "]" + " " + maxPopulation);
     }
 }
