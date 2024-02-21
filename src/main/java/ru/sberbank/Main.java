@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -17,10 +19,12 @@ public class Main {
 //        List<City> cities = readCitiesFromFile(fileName); // вывод списка
 //        List<City> cities = sortingName(fileName); // сортировка по имени
 //        List<City> cities = sortingDistrictName(fileName); // сортировка по федеральному округу и имени
-        citizenMax(fileName);
-        citizenMax_II(fileName);
+//        citizenMax(fileName);
+//        citizenMax_II(fileName);
+        numberCitiesRegion(fileName);
 
-//         Выводим полученные объекты City в консоль
+
+////         Выводим полученные объекты City в консоль
 //        for (City city : cities) {
 //            System.out.println(city);
 //        }
@@ -112,7 +116,31 @@ public class Main {
         System.out.println("[" + cityWithMaxPopulation.getNumber() + "]" + " " + cityWithMaxPopulation.getPopulation());
     }
     public static void numberCitiesRegion (String fileName) {
+        // Создаем HashMap для подсчета количества каждого региона
+        Map<String, Integer> regionCount = new HashMap<>();
 
+        try {
+            File file = new File(fileName); // Передаем файл
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(";"); // Данные разделены ;
+                String region = parts[2].trim();
+                if (regionCount.containsKey(region)) {
+                    regionCount.put(region, regionCount.get(region) + 1);
+                } else {
+                    regionCount.put(region, 1);
+                }
+            }
+            scanner.close();
+
+            for (Map.Entry<String, Integer> entry : regionCount.entrySet()) {
+                System.out.println(entry.getKey() + " - " + entry.getValue());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден: " + e.getMessage());
+        }
     }
+
 
 }
